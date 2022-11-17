@@ -1,0 +1,131 @@
+﻿@model Tuple<IEnumerable<SelectListItem>, IEnumerable<SelectListItem>, IEnumerable<SelectListItem>>
+
+@{
+    ViewBag.Title = "Amount Details";
+}
+
+<h4>Amount Details</h4>
+
+<script src="~/Scripts/jquery-3.6.1.min.js"></script>
+<script>
+    $(document).ready(() => {
+
+
+        $("#txtPaymentAmount").keyup(() => {
+            var payAmt = parseInt($("#txtPaymentAmount").val());
+            var totalAmt = parseInt($("#txtTotalAmt").val());
+            var balanceAmt = $("#txtBalance");
+
+            if (payAmt > totalAmt) {
+                var sub = payAmt - totalAmt;
+                balanceAmt.val(sub);
+            }
+            else {
+                var sub = totalAmt - payAmt;
+
+                balanceAmt.val("+" + sub);
+                balanceAmt.css({ 'color': 'red' });
+            }
+        })
+
+        $("#btnPayment").click(() => {
+            Payment();
+        })
+        $("#btnBack").click(() => {
+            var url = "/Home/back";
+            window.location.href = url;
+        })
+            
+    });
+
+    function Payment() {
+        alert("Order Placed Successfully");
+    }
+    
+</script>
+<style>
+    h4 {
+        font-family: 'Lucida Handwriting';
+        color: darkviolet;
+    }
+    .OrderName {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+    }
+    .orderClass {
+        display: flex;
+        justify-content: space-around;
+        width: 800px;
+        padding: 10px;
+        margin-left: 3rem;
+        align-items: center;
+    }
+    .btn {
+        margin-top: 25px;
+        margin: auto;
+        padding: 7px 10px;
+        border-radius: 5px;
+        background-color: #9400d3;
+        border: none;
+        outline: none;
+    }
+    .btn1 {
+        margin-top: 25px;
+        margin: auto;
+        padding: 7px 10px;
+        border-radius: 5px;
+        background-color: lightgreen;
+        border: none;
+        outline: none;
+    }
+    .txtbox {
+        width: 11.5rem;
+        background-color: black;
+        color: white;
+        font-size: 14px;
+    }
+</style>
+
+
+<body>
+    <div class="orderClass" style="font-size:14px;">
+
+        <div>
+            <div class="OrderName">
+                Payment Total:
+            </div>
+            <div>
+                <input style="text-align:right" type="text" id="txtTotalAmt" readonly="readonly" value=@ViewBag.finalPrice class="form-control txtbox" />
+            </div>
+        </div>
+
+
+
+        @*<div>
+            <div class="OrderName">
+                Payment Amount:
+            </div>
+            <div>
+                <input style="text-align:right" type="text" id="txtPaymentAmount" value="0.00" class="form-control txtbox" />
+            </div>
+        </div>
+
+
+        <div>
+            <div class="OrderName">
+                Balance Amount:
+            </div>
+            <div>
+                <input style="text-align:right" type="text" id="txtBalance" readonly="readonly" value=@ViewBag.finalPrice class="form-control txtbox" />
+            </div>
+        </div>*@
+
+
+
+        <div>
+            <button id="btnPayment" class="btn" value="Payment">Pay</button>
+            <button id="btnBack" data-dismiss="modal" class="btn1" value="Back">Back</button>
+        </div>
+   </div>
+</body>
+
